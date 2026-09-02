@@ -61,6 +61,7 @@ function Home({ bundle }: { bundle: Bundle }) {
             <Figure n={span.toLocaleString()} sub="yrs" k="Spanned" />
             <Figure n={String(bundle.stats.wishlist)} k="In pursuit" />
           </div>
+          <Progress owned={bundle.stats.owned} total={bundle.stats.owned + bundle.stats.wishlist} />
           <div className="scroll-cue" aria-hidden="true">↓</div>
         </div>
       </header>
@@ -96,9 +97,10 @@ function WorldCard({ world, n }: { world: World; n: number }) {
       <h3>{world.name}</h3>
       {world.tagline ? <p className="wc-tag">{world.tagline}</p> : null}
       <p className="wc-meta">
-        {world.era ? `${world.era.from}–${world.era.to}` : ""} · {owned} coins
+        {world.era ? `${world.era.from}–${world.era.to}` : ""}
         {wish ? ` · ${wish} sought` : ""}
       </p>
+      <Progress owned={owned} total={world.coins.length} subtle />
       <span className="wc-enter">Enter the hall →</span>
     </a>
   );
@@ -110,6 +112,8 @@ function WorldPage({ bundle, world }: { bundle: Bundle; world: World }) {
   const idx = bundle.worlds.findIndex((w) => w.id === world.id);
   const prev = bundle.worlds[idx - 1];
   const next = bundle.worlds[idx + 1];
+  const owned = world.coins.filter((c) => c.status === "owned");
+  const wish = world.coins.filter((c) => c.status === "wishlist");
   return (
     <div className="page fade">
       <div className="topbar">
@@ -126,12 +130,24 @@ function WorldPage({ bundle, world }: { bundle: Bundle; world: World }) {
           <h2 id="ch-t">{world.name}</h2>
           {world.tagline ? <p className="tagline">{world.tagline}</p> : null}
           {world.intro ? <p className="intro">{world.intro}</p> : null}
+          <Progress owned={owned.length} total={world.coins.length} />
         </div>
         <div className="reel">
-          {world.coins.map((c) => (
+          {owned.map((c) => (
             <CoinEntry key={c.id} coin={c} />
           ))}
         </div>
+        {wish.length ? (
+          <div className="stillhunting">
+            <h3 className="sh-title">Still hunting <span>· {wish.length} slots to fill</span></h3>
+            <p className="sh-note">The reserved chapters — coins sought to complete this world, cheapest wins first.</p>
+            <div className="wishgrid">
+              {wish.map((c) => (
+                <WishCard key={c.id} coin={c} />
+              ))}
+            </div>
+          </div>
+        ) : null}
       </section>
 
       <nav className="worldnav" aria-label="Between worlds">
@@ -160,6 +176,30 @@ function Figure({ n, sub, k }: { n: string; sub?: string; k: string }) {
     <div className="figure">
       <div className="fn">{n}{sub ? <small>{sub}</small> : null}</div>
       <div className="fk">{k}</div>
+    </div>
+  );
+}
+
+function Progress({ owned, total, subtle }: { owned: number; total: number; subtle?: boolean }) {
+  const pct = total ? Math.round((owned / total) * 100) : 0;
+  return (
+    <div className={`progress ${subtle ? "subtle" : ""}`}>
+      <div className="progress-label"><span>{owned} of {total} acquired</span><span>{pct}%</span></div>
+      <div className="progress-track"><i style={{ width: `${pct}%` }} /></div>
+    </div>
+  );
+}
+
+function WishCard({ coin }: { coin: Coin }) {
+  const meta = [coin.authority, coin.date, coin.denomination, coin.metal].filter(Boolean).join(" · ");
+  return (
+    <div className={`wishcard ${coin.ambitious ? "whale" : ""}`}>
+      <Medallion coin={coin} small />
+      <div className="wishcard-body">
+        <h4>{coin.name}{coin.ambitious ? <span className="whale-badge">★ white whale</span> : null}</h4>
+        {meta ? <p className="wish-meta">{meta}</p> : null}
+        {coin.story?.body ? <p className="wish-why">{coin.story.body}</p> : null}
+      </div>
     </div>
   );
 }

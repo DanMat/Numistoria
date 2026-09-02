@@ -17,6 +17,7 @@ export type Coin = {
   grade?: string;
   tags: string[];
   story?: { hook?: string; body?: string };
+  ambitious?: boolean;
   images?: { obverse?: Img; reverse?: Img };
   certification?: { service: string; grade?: string };
 };
