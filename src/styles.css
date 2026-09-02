@@ -1,0 +1,125 @@
+:root {
+  --bg: #14100a;
+  --bg-2: #1a150d;
+  --panel: #201a11;
+  --panel-2: #261f14;
+  --line: #3a2f1d;
+  --line-2: #4d3f27;
+  --ink: #efe6d2;
+  --muted: #bcae90;
+  --faint: #8b7d61;
+  --gold: #c9a227;
+  --gold-2: #e7d29a;
+  --gold-deep: #8a6d1e;
+  --display: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --maxw: 940px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  background-image:
+    radial-gradient(60% 40% at 50% -8%, rgba(201, 162, 39, 0.14), transparent 60%),
+    radial-gradient(50% 40% at 100% 100%, rgba(201, 162, 39, 0.06), transparent 55%);
+  background-attachment: fixed;
+}
+::selection { background: rgba(201, 162, 39, 0.28); }
+a { color: var(--gold-2); text-decoration: none; }
+
+/* ---------- Hero ---------- */
+.hero { min-height: 94vh; display: grid; place-items: center; padding: 3rem 1.25rem; position: relative; }
+.hero-inner { max-width: 760px; text-align: center; }
+.kicker {
+  font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--gold);
+  margin: 0 0 1.6rem;
+}
+.wordmark {
+  font-family: var(--display); font-weight: 600; font-size: clamp(3.4rem, 13vw, 8rem);
+  line-height: 0.95; letter-spacing: 0.02em; margin: 0;
+  background: linear-gradient(178deg, var(--gold-2), var(--gold) 45%, var(--gold-deep));
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+  text-shadow: 0 1px 40px rgba(201, 162, 39, 0.18);
+}
+.lede {
+  font-family: var(--display); font-size: clamp(1.15rem, 2.6vw, 1.55rem); font-style: italic;
+  color: var(--muted); max-width: 46ch; margin: 1.6rem auto 0; line-height: 1.5;
+}
+.figures {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: clamp(1.4rem, 6vw, 3.5rem);
+  margin-top: 2.8rem; padding-top: 2rem; border-top: 1px solid var(--line);
+}
+.figure .fn {
+  font-family: var(--display); font-weight: 700; font-size: clamp(1.9rem, 5vw, 2.8rem);
+  line-height: 1; color: var(--gold-2); font-variant-numeric: tabular-nums;
+}
+.figure .fn small { font-size: 0.4em; color: var(--faint); font-family: var(--sans); margin-left: 0.2em; }
+.figure .fk { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); margin-top: 0.5rem; }
+.scroll-cue { margin-top: 3rem; color: var(--gold); opacity: 0.6; font-size: 1.4rem; animation: bob 2.4s ease-in-out infinite; }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+@media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+
+/* ---------- Chapter index ---------- */
+.index { max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem 2rem; }
+.index ol { list-style: none; margin: 0; padding: 1.4rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: 0.2rem; }
+.index a { display: grid; grid-template-columns: 2.4rem 1fr auto; align-items: baseline; gap: 1rem; padding: 0.5rem 0.4rem; border-radius: 6px; color: var(--ink); }
+.index a:hover { background: var(--panel); }
+.index .idx-n { font-family: var(--display); color: var(--gold); font-size: 1.1rem; text-align: right; }
+.index .idx-t { font-family: var(--display); font-size: 1.25rem; }
+.index .idx-e { font-size: 0.75rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+
+/* ---------- Chapter ---------- */
+.chapter { max-width: var(--maxw); margin: 0 auto; padding: clamp(3rem, 9vw, 6.5rem) 1.25rem 0; }
+.chapter-head { max-width: 60ch; }
+.eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.7rem; }
+.chapter h2 { font-family: var(--display); font-weight: 700; font-size: clamp(2.1rem, 6vw, 3.4rem); line-height: 1.02; margin: 0; }
+.tagline { font-family: var(--display); font-style: italic; font-size: 1.2rem; color: var(--muted); margin: 0.6rem 0 0; }
+.intro { font-size: 1.02rem; color: var(--ink); opacity: 0.92; margin: 1.4rem 0 0; }
+
+/* ---------- Coins (a vertical reel with a gilt rail) ---------- */
+.reel { margin: 2.6rem 0 0; padding-left: 1.5rem; border-left: 1px solid var(--line-2); display: grid; gap: 2.6rem; }
+.coin { display: grid; grid-template-columns: 118px 1fr; gap: 1.5rem; align-items: start; position: relative; }
+.coin::before {
+  content: ""; position: absolute; left: calc(-1.5rem - 1px); top: 52px; width: 1.5rem; height: 1px; background: var(--line-2);
+}
+.coin-figure { position: relative; }
+.medallion { width: 118px; height: 118px; display: block; border-radius: 50%; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5)); }
+.med-face { fill: #c19a2c; }
+.medallion:not(.ghost) .med-ring { fill: none; stroke: rgba(40, 30, 6, 0.35); stroke-width: 1.5; }
+.med-initials { fill: #3a2c0c; font-family: var(--display); font-weight: 700; font-size: 30px; }
+.med-sub { fill: rgba(58, 44, 12, 0.75); font-family: var(--sans); font-size: 8px; letter-spacing: 0.04em; }
+.medallion.ghost .med-face { fill: rgba(201, 162, 39, 0.05); stroke: var(--gold); stroke-width: 1.5; stroke-dasharray: 4 4; }
+.medallion.ghost .med-ring { fill: none; stroke: rgba(201, 162, 39, 0.3); stroke-width: 1; }
+.medallion.ghost .med-initials { fill: var(--gold-2); }
+.medallion.ghost .med-sub { fill: var(--gold); }
+.ribbon {
+  position: absolute; left: 50%; bottom: -8px; transform: translateX(-50%);
+  font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap;
+  background: var(--gold); color: #201703; padding: 0.16rem 0.5rem; border-radius: 999px; font-weight: 600;
+}
+.coin-body h3 { font-family: var(--display); font-weight: 700; font-size: 1.5rem; line-height: 1.1; margin: 0.2rem 0 0.35rem; }
+.coin-meta { font-size: 0.75rem; letter-spacing: 0.06em; color: var(--faint); text-transform: uppercase; margin: 0 0 0.9rem; }
+.hook { font-family: var(--display); font-style: italic; font-size: 1.28rem; line-height: 1.35; color: var(--gold-2); margin: 0 0 0.8rem; }
+.story { font-size: 1rem; color: var(--ink); opacity: 0.9; margin: 0; max-width: 62ch; }
+.coin.wish .coin-body h3 { color: var(--gold-2); }
+.coin.wish { opacity: 0.96; }
+
+/* ---------- Footer ---------- */
+.foot { max-width: var(--maxw); margin: clamp(4rem, 10vw, 7rem) auto 0; padding: 2.4rem 1.25rem 4rem; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.9rem; }
+.foot strong { color: var(--gold-2); font-family: var(--display); font-weight: 700; font-size: 1.05rem; letter-spacing: 0.02em; }
+.foot .fine { color: var(--faint); font-size: 0.8rem; margin-top: 0.6rem; }
+.loading { font-family: var(--display); font-style: italic; color: var(--muted); text-align: center; padding: 6rem 1.25rem; font-size: 1.3rem; }
+
+@media (max-width: 620px) {
+  .coin { grid-template-columns: 84px 1fr; gap: 1rem; }
+  .medallion { width: 84px; height: 84px; }
+  .coin::before { top: 40px; }
+  .index a { grid-template-columns: 1.8rem 1fr; }
+  .index .idx-e { display: none; }
+}

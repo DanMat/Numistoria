@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.wrangler/
+*.tsbuildinfo
+.DS_Store
+# Data bundle is pulled from R2 at build time
+public/collection.json
