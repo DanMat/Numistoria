@@ -65,7 +65,42 @@ a { color: var(--gold-2); text-decoration: none; }
 @keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
 @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
 
-/* ---------- Chapter index ---------- */
+.page.fade { animation: fade 0.5s ease both; }
+@keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .page.fade { animation: none; } }
+
+/* ---------- Worlds gallery (home) ---------- */
+.gallery-wrap { max-width: var(--maxw); margin: 0 auto; padding: clamp(1rem, 4vw, 2rem) 1.25rem 1rem; }
+.section-eyebrow { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.4rem; text-align: center; }
+.section-title { font-family: var(--display); font-weight: 700; font-size: clamp(1.8rem, 5vw, 2.8rem); text-align: center; margin: 0 0 2.2rem; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; }
+.world-card {
+  display: block; color: inherit; background: linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line); border-radius: 14px; padding: 1.4rem 1.4rem 1.2rem; transition: 0.18s ease;
+}
+.world-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 16px 40px -20px rgba(0, 0, 0, 0.7); }
+.wc-coins { display: flex; margin-bottom: 1rem; height: 46px; }
+.wc-coin { display: inline-flex; margin-left: -14px; }
+.wc-coin:first-child { margin-left: 0; }
+.wc-num { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin: 0 0 0.3rem; }
+.world-card h3 { font-family: var(--display); font-weight: 700; font-size: 1.5rem; line-height: 1.05; margin: 0 0 0.45rem; }
+.wc-tag { font-family: var(--display); font-style: italic; color: var(--muted); font-size: 1.02rem; line-height: 1.35; margin: 0 0 0.9rem; }
+.wc-meta { font-size: 0.72rem; letter-spacing: 0.05em; color: var(--faint); text-transform: uppercase; margin: 0 0 1rem; }
+.wc-enter { font-size: 0.82rem; color: var(--gold-2); letter-spacing: 0.02em; }
+.world-card:hover .wc-enter { text-decoration: underline; }
+
+/* ---------- World-page top bar + inter-world nav ---------- */
+.topbar { max-width: var(--maxw); margin: 0 auto; padding: 1.4rem 1.25rem; display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--line); }
+.back { font-family: var(--display); font-size: 1.15rem; color: var(--gold-2); }
+.topbar-ch { font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--faint); }
+.worldnav { max-width: var(--maxw); margin: clamp(3rem, 8vw, 5rem) auto 0; padding: 1.6rem 1.25rem 0; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 1rem; }
+.wn { display: flex; flex-direction: column; gap: 0.2rem; color: inherit; max-width: 46%; }
+.wn-next { text-align: right; margin-left: auto; }
+.wn-dir { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.wn-name { font-family: var(--display); font-size: 1.2rem; color: var(--ink); }
+.wn:hover .wn-name { color: var(--gold-2); }
+
+/* ---------- Chapter index (legacy, unused) ---------- */
 .index { max-width: var(--maxw); margin: 0 auto; padding: 1rem 1.25rem 2rem; }
 .index ol { list-style: none; margin: 0; padding: 1.4rem 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); display: grid; gap: 0.2rem; }
 .index a { display: grid; grid-template-columns: 2.4rem 1fr auto; align-items: baseline; gap: 1rem; padding: 0.5rem 0.4rem; border-radius: 6px; color: var(--ink); }
@@ -90,6 +125,7 @@ a { color: var(--gold-2); text-decoration: none; }
 }
 .coin-figure { position: relative; }
 .medallion { width: 118px; height: 118px; display: block; border-radius: 50%; filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.5)); }
+.medallion.sm { width: 46px; height: 46px; filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5)); }
 .med-face { fill: #c19a2c; }
 .medallion:not(.ghost) .med-ring { fill: none; stroke: rgba(40, 30, 6, 0.35); stroke-width: 1.5; }
 .med-initials { fill: #3a2c0c; font-family: var(--display); font-weight: 700; font-size: 30px; }
