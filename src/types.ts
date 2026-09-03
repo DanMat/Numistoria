@@ -1,5 +1,18 @@
 export type Img = { url?: string; alt?: string; credit?: string };
 
+export type SourceQuote = { text: string; attribution: string; note?: string };
+export type Reference = { key: string; label: string; url: string; kind: string; note?: string; verified: boolean };
+export type DeepDive = {
+  howToRead?: string;
+  whoIsOnIt?: string;
+  theYear?: string;
+  inTheSources: SourceQuote[];
+  metalAndMaking?: string;
+  whyItMatters?: string;
+  cautions?: string;
+  reviewed: boolean;
+};
+
 export type Coin = {
   id: string;
   order: number;
@@ -19,6 +32,9 @@ export type Coin = {
   story?: { hook?: string; body?: string };
   ambitious?: boolean;
   images?: { obverse?: Img; reverse?: Img };
+  header?: Img;
+  deepDive?: DeepDive;
+  references?: Reference[];
   certification?: { service: string; grade?: string };
 };
 
