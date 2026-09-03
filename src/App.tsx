@@ -84,8 +84,11 @@ function WorldCard({ world, n }: { world: World; n: number }) {
   const owned = world.coins.filter((c) => c.status === "owned").length;
   const wish = world.coins.filter((c) => c.status === "wishlist").length;
   const preview = world.coins.slice(0, 5);
+  const bg = world.cover?.url
+    ? { backgroundImage: `linear-gradient(rgba(22,17,10,0.88), rgba(22,17,10,0.965)), url(${world.cover.url})`, backgroundSize: "cover", backgroundPosition: "center" }
+    : undefined;
   return (
-    <a className="world-card" href={`#/${world.id}`}>
+    <a className="world-card" href={`#/${world.id}`} style={bg}>
       <div className="wc-coins">
         {preview.map((c, i) => (
           <span className="wc-coin" style={{ zIndex: preview.length - i }} key={c.id}>
@@ -121,14 +124,30 @@ function WorldPage({ bundle, world }: { bundle: Bundle; world: World }) {
         <span className="topbar-ch">Chapter {ROMAN[idx + 1]} of {bundle.worlds.length}</span>
       </div>
 
-      <section className="chapter" aria-labelledby="ch-t">
+      {world.cover?.url ? (
+        <div className="hall-hero" style={{ backgroundImage: `url(${world.cover.url})` }}>
+          <div className="hall-hero-scrim">
+            <p className="eyebrow">
+              {world.era ? <>{world.era.from}–{world.era.to}</> : null}
+              {world.regions.length ? <> · {world.regions.join(" · ")}</> : null}
+            </p>
+            <h2 id="ch-t">{world.name}</h2>
+            {world.tagline ? <p className="tagline">{world.tagline}</p> : null}
+          </div>
+        </div>
+      ) : null}
+      <section className="chapter" aria-labelledby={world.cover?.url ? undefined : "ch-t"}>
         <div className="chapter-head">
-          <p className="eyebrow">
-            {world.era ? <>{world.era.from}–{world.era.to}</> : null}
-            {world.regions.length ? <> · {world.regions.join(" · ")}</> : null}
-          </p>
-          <h2 id="ch-t">{world.name}</h2>
-          {world.tagline ? <p className="tagline">{world.tagline}</p> : null}
+          {!world.cover?.url ? (
+            <>
+              <p className="eyebrow">
+                {world.era ? <>{world.era.from}–{world.era.to}</> : null}
+                {world.regions.length ? <> · {world.regions.join(" · ")}</> : null}
+              </p>
+              <h2 id="ch-t">{world.name}</h2>
+              {world.tagline ? <p className="tagline">{world.tagline}</p> : null}
+            </>
+          ) : null}
           {world.intro ? <p className="intro">{world.intro}</p> : null}
           <Progress owned={owned.length} total={world.coins.length} />
         </div>
@@ -251,8 +270,9 @@ function Footer({ bundle }: { bundle: Bundle }) {
     <footer className="foot">
       <p>
         <strong>Numistoria</strong> — a personal collection, told as a story. Narratives are written
-        with Claude from the recorded facts of each coin and its era; coin photography is being added
-        piece by piece, with placeholders until each is in hand.
+        with Claude from the recorded facts of each coin and its era; hall backdrops are AI-rendered
+        from historical prompts; coin photography is being added piece by piece, with placeholders
+        until each is in hand.
       </p>
       <p className="fine">Last updated {d.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}.</p>
     </footer>

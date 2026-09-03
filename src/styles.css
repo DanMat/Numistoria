@@ -109,6 +109,22 @@ a { color: var(--gold-2); text-decoration: none; }
 .index .idx-t { font-family: var(--display); font-size: 1.25rem; }
 .index .idx-e { font-size: 0.75rem; color: var(--faint); font-variant-numeric: tabular-nums; }
 
+/* ---------- Hall hero (AI backdrop) ---------- */
+.hall-hero { position: relative; background-size: cover; background-position: center; }
+.hall-hero::before {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(to top, var(--bg) 3%, rgba(20, 16, 10, 0.62) 42%, rgba(20, 16, 10, 0.34) 100%);
+}
+.hall-hero-scrim {
+  position: relative; max-width: var(--maxw); margin: 0 auto;
+  min-height: clamp(240px, 42vw, 380px);
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: 4rem clamp(1rem, 4vw, 2rem) 1.4rem;
+}
+.hall-hero .eyebrow { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7); }
+.hall-hero h2 { text-shadow: 0 2px 18px rgba(0, 0, 0, 0.75); }
+.hall-hero .tagline { text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8); }
+
 /* ---------- Chapter ---------- */
 .chapter { max-width: var(--maxw); margin: 0 auto; padding: clamp(3rem, 9vw, 6.5rem) 1.25rem 0; }
 .chapter-head { max-width: 60ch; }
